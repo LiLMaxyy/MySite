@@ -1,3 +1,5 @@
+// Дополнительная логика для работы магазина
+
 let products = JSON.parse(localStorage.getItem('products')) || [];
 let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
@@ -29,7 +31,7 @@ function addNewProduct() {
         populateCategoryFilter();
         updateLocalStorage();
 
-        
+        // Очищаем форму после добавления товара
         document.getElementById('productName').value = '';
         document.getElementById('productPrice').value = '';
         document.getElementById('productDescription').value = '';
@@ -118,14 +120,6 @@ function populateCategoryFilter() {
     });
 }
 
-
-function updateLocalStorage() {
-    localStorage.setItem('products', JSON.stringify(products));
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-}
-
-
-initializePage();
 function filterProducts() {
     const categoryFilter = document.getElementById('categoryFilter').value;
     const searchQuery = document.getElementById('searchProduct').value.toLowerCase();
@@ -245,6 +239,6 @@ function clearCart() {
     updateLocalStorage();
 }
 
-
+// Вызываем инициализацию страницы при загрузке
 initializePage();
 

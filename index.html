@@ -4,62 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Магазин товаров</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header>
+<header class="bg-dark text-white text-center py-5">
     <h1>Добро пожаловать в наш магазин!</h1>
 </header>
 
-<section>
+<section class="container my-5">
     <div id="addProductForm">
-        
-        <h2>Добавить новый товар</h2>
+        <!-- Форма для добавления товара -->
+        <h2 class="mb-4">Добавить новый товар</h2>
         <form onsubmit="addNewProduct(); return false;">
-            
-            <label for="productName">Название товара:</label>
-            <input type="text" id="productName" required>
-
-            <label for="productPrice">Цена:</label>
-            <input type="number" id="productPrice" step="0.01" required>
-
-            <label for="productDescription">Описание товара:</label>
-            <textarea id="productDescription" required></textarea>
-
-            <label for="productImage">Изображение (URL):</label>
-            <input type="url" id="productImage" required>
-
-            <label for="productCategory">Категория:</label>
-            <input type="text" id="productCategory" required>
-
-            <button type="submit">Добавить товар</button>
+            <div class="form-group">
+                <label for="productName">Название товара:</label>
+                <input type="text" class="form-control" id="productName" required>
+            </div>
+            <div class="form-group">
+                <label for="productPrice">Цена:</label>
+                <input type="number" class="form-control" id="productPrice" required>
+            </div>
+            <div class="form-group">
+                <label for="productDescription">Описание:</label>
+                <textarea class="form-control" id="productDescription" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="productImage">Ссылка на изображение:</label>
+                <input type="text" class="form-control" id="productImage" required>
+            </div>
+            <div class="form-group">
+                <label for="productCategory">Категория:</label>
+                <input type="text" class="form-control" id="productCategory" required>
+            </div>
+        
+            <button type="submit" class="btn btn-primary">Добавить товар</button>
         </form>
     </div>
 
-    <div id="filters">
-        
+    <div id="filters" class="my-4">
+        <!-- Фильтры для категорий и поиска -->
         <h2>Фильтры</h2>
-        <label for="categoryFilter">Категория:</label>
-        <select id="categoryFilter" onchange="filterProducts()">
-            <option value="all">Все категории</option>
-        </select>
+        <div class="form-group">
+            <label for="categoryFilter">Категория:</label>
+            <select id="categoryFilter" class="form-control" onchange="filterProducts()">
+                <option value="all">Все категории</option>
+            </select>
+        </div>
 
-        <label for="searchProduct">Поиск:</label>
-        <input type="text" id="searchProduct" oninput="filterProducts()">
+        <div class="form-group">
+            <label for="searchProduct">Поиск:</label>
+            <input type="text" id="searchProduct" class="form-control" oninput="filterProducts()">
+        </div>
     </div>
 
-    <section id="productsSection">
-        
+    <section id="productsSection" class="row">
+        <!-- Секция для отображения товаров -->
     </section>
 
-    <section id="cartSection">
+    <section id="cartSection" class="my-5">
+        <!-- Корзина -->
         <h2>Корзина</h2>
-        <ul id="cart"></ul>
+        <ul id="cart" class="list-unstyled"></ul>
         <p id="totalPrice">Общая стоимость: $0.00</p>
-        <button onclick="clearCart()">Очистить корзину</button>
+        <button onclick="clearCart()" class="btn btn-danger">Очистить корзину</button>
     </section>
 </section>
+
+<!-- Подключение Bootstrap JS (Popper.js и jQuery нужны для некоторых компонентов Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 <script src="script.js"></script>
 </body>
