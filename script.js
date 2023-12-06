@@ -1,18 +1,52 @@
-
-
-const products = [
-    
-    { id: 1, name: 'Товар 1', price: 19.99, category: 'Электроника', description: 'Описание товара 1', image: 'product1.jpg' },
-    { id: 2, name: 'Товар 2', price: 29.99, category: 'Одежда', description: 'Описание товара 2', image: 'product2.jpg' }
-    
-];
-
+let products = [];
 let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
 function initializePage() {
-    displayProducts(products);
-    updateCart();
-    populateCategoryFilter();
+    
+    setTimeout(() => {
+        products = [
+            { id: 1, name: 'Товар 1', price: 19.99, category: 'Электроника', description: 'Описание товара 1', image: 'product1.jpg' },
+            { id: 2, name: 'Товар 2', price: 29.99, category: 'Одежда', description: 'Описание товара 2', image: 'product2.jpg' },
+            { id: 3, name: 'Товар 3', price: 14.99, category: 'Книги', description: 'Описание товара 3', image: 'product3.jpg' },
+            
+        ];
+
+        displayProducts(products);
+        updateCart();
+        populateCategoryFilter();
+    }, 1000); 
+}
+
+function addNewProduct() {
+    const productName = document.getElementById('productName').value;
+    const productPrice = parseFloat(document.getElementById('productPrice').value);
+    const productDescription = document.getElementById('productDescription').value;
+    const productImage = document.getElementById('productImage').value;
+    const productCategory = document.getElementById('productCategory').value;
+
+    if (productName && !isNaN(productPrice) && productDescription && productImage && productCategory) {
+        const newProduct = {
+            id: products.length + 1,
+            name: productName,
+            price: productPrice,
+            description: productDescription,
+            image: productImage,
+            category: productCategory,
+        };
+
+        products.push(newProduct);
+        displayProducts(products);
+        populateCategoryFilter();
+
+        
+        document.getElementById('productName').value = '';
+        document.getElementById('productPrice').value = '';
+        document.getElementById('productDescription').value = '';
+        document.getElementById('productImage').value = '';
+        document.getElementById('productCategory').value = '';
+    } else {
+        alert('Пожалуйста, заполните все поля для добавления товара.');
+    }
 }
 
 function displayProducts(productsToDisplay) {
@@ -23,57 +57,6 @@ function displayProducts(productsToDisplay) {
         const productElement = createProductElement(product);
         productsSection.appendChild(productElement);
     });
-}
-
-function updateCart() {
-    const cartElement = document.getElementById('cart');
-    const totalPriceElement = document.getElementById('totalPrice');
-    let totalPrice = 0;
-
-    cartElement.innerHTML = '';
-
-    cartItems.forEach(item => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${item.name} - $${item.price.toFixed(2)}`;
-        cartElement.appendChild(listItem);
-
-        totalPrice += item.price;
-    });
-
-    totalPriceElement.textContent = `Общая стоимость: $${totalPrice.toFixed(2)}`;
-}
-
-function addNewProduct() {
-    const productName = document.getElementById('productName').value;
-    const productPrice = parseFloat(document.getElementById('productPrice').value);
-    const productDescription = document.getElementById('productDescription').value;
-    const productImage = document.getElementById('productImage').value;
-
-    if (productName && !isNaN(productPrice) && productDescription && productImage) {
-        const newProduct = {
-            name: productName,
-            price: productPrice,
-            description: productDescription,
-            image: productImage
-        };
-
-        products.push(newProduct);
-        displayProducts(products);
-
-        cartItems.push(newProduct);
-        updateCart();
-    } else {
-        alert('Пожалуйста, заполните все поля формы.');
-    }
-}
-
-function addToCart(productName, price) {
-    const product = products.find(p => p.name === productName);
-
-    if (product) {
-        cartItems.push(product);
-        updateCart();
-    }
 }
 
 function createProductElement(product) {
@@ -102,7 +85,6 @@ function createProductElement(product) {
         addToCart(product.id);
     };
 
-    
     const productLink = document.createElement('a');
     productLink.href = `product.html?id=${product.id}`;
     productLink.appendChild(productName);
@@ -129,11 +111,6 @@ function populateCategoryFilter() {
     });
 }
 
-function clearCart() {
-    cartItems = [];
-    updateCart();
-}
-
 function filterProducts() {
     const categoryFilter = document.getElementById('categoryFilter').value;
     const searchQuery = document.getElementById('searchProduct').value.toLowerCase();
@@ -153,4 +130,103 @@ function filterProducts() {
     displayProducts(filteredProducts);
 }
 
-window.onload = initializePage;
+function updateLocalStorage() {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+}
+
+function updateCart() {
+    const cartElement = document.getElementById('cart');
+    const totalPriceElement = document.getElementById('totalPrice');
+    let totalPrice = 0;
+
+    cartElement.innerHTML = '';
+
+    cartItems.forEach(item => {
+        const listItem = document.createElement('li');
+
+        const itemName = document.createElement('span');
+        itemName.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+
+        const itemQuantity = document.createElement('span');
+        itemQuantity.textContent = ` x ${item.quantity}`;
+
+        const increaseButton = document.createElement('button');
+        increaseButton.textContent = '+';
+        increaseButton.onclick = () => changeQuantity(item.id, 1);
+
+        const decreaseButton = document.createElement('button');
+        decreaseButton.textContent = '-';
+        decreaseButton.onclick = () => changeQuantity(item.id, -1);
+
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Удалить';
+        removeButton.onclick = () => removeFromCart(item.id);
+
+        listItem.appendChild(itemName);
+        listItem.appendChild(itemQuantity);
+        listItem.appendChild(increaseButton);
+        listItem.appendChild(decreaseButton);
+        listItem.appendChild(removeButton);
+
+        cartElement.appendChild(listItem);
+
+        totalPrice += item.price * item.quantity;
+    });
+
+    totalPriceElement.textContent = `Общая стоимость: $${totalPrice.toFixed(2)}`;
+}
+
+function addToCart(productId) {
+    const product = products.find(p => p.id === productId);
+
+    if (product) {
+        const cartItem = cartItems.find(item => item.id === productId);
+
+        if (cartItem) {
+            cartItem.quantity += 1;
+        } else {
+            cartItems.push({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                quantity: 1,
+            });
+        }
+
+        updateCart();
+        updateLocalStorage();
+    }
+}
+
+function changeQuantity(productId, change) {
+    const itemIndex = cartItems.findIndex(item => item.id === productId);
+
+    if (itemIndex !== -1) {
+        cartItems[itemIndex].quantity += change;
+
+        if (cartItems[itemIndex].quantity <= 0) {
+            cartItems.splice(itemIndex, 1);
+        }
+
+        updateCart();
+        updateLocalStorage();
+    }
+}
+
+function removeFromCart(productId) {
+    const itemIndex = cartItems.findIndex(item => item.id === productId);
+    if (itemIndex !== -1) {
+        cartItems.splice(itemIndex, 1);
+        updateCart();
+        updateLocalStorage();
+    }
+}
+
+function clearCart() {
+    cartItems = [];
+    updateCart();
+    updateLocalStorage();
+}
+
+initializePage();
+

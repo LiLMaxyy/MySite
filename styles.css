@@ -1,4 +1,3 @@
-
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -33,23 +32,12 @@ section {
 .product img {
     max-width: 100%;
     height: auto;
-    margin-bottom: 10px;
-}
-
-#productDetails {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 20px;
-}
-
-#productDetails img {
-    max-width: 100%;
-    height: auto;
     margin-bottom: 20px;
 }
 
-#addProductForm {
+#addProductForm,
+#filters,
+#cartSection {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -59,12 +47,10 @@ section {
     text-align: center;
 }
 
-#cart {
-    list-style-type: none;
-    padding: 0;
-}
-
 #cart li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin: 5px 0;
 }
 
@@ -97,9 +83,22 @@ button {
     font-size: 14px;
     margin: 4px 2px;
     cursor: pointer;
-    border-radius: 3px;
+    border-radius: 4px;
 }
 
 button:hover {
     background-color: #555;
+}
+
+#productDetails {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+#productDetails img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
 }
