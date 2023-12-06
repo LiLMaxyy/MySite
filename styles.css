@@ -36,6 +36,19 @@ section {
     margin-bottom: 10px;
 }
 
+#productDetails {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+#productDetails img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
 #addProductForm {
     background-color: #fff;
     border: 1px solid #ddd;

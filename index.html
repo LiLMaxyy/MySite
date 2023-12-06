@@ -18,14 +18,29 @@
         <h2>Добавить новый товар</h2>
         <form onsubmit="addNewProduct(); return false;">
             
+            <label for="productCategory">Категория:</label>
+            <input type="text" id="productCategory" required>
         </form>
+    </div>
+
+    <div id="filters">
+        
+        <h2>Фильтры</h2>
+        <label for="categoryFilter">Категория:</label>
+        <select id="categoryFilter" onchange="filterProducts()">
+            <option value="all">Все категории</option>
+            
+        </select>
+
+        <label for="searchProduct">Поиск:</label>
+        <input type="text" id="searchProduct" oninput="filterProducts()">
     </div>
 
     <section id="productsSection">
         
     </section>
 
-    <section>
+    <section id="cartSection">
         
         <h2>Корзина</h2>
         <ul id="cart"></ul>
@@ -35,5 +50,3 @@
 </section>
 
 <script src="script.js"></script>
-</body>
-</html>

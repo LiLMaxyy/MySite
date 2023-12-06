@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детали товара</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Детали товара</h1>
+</header>
+
+<section id="productDetails">
+
+</section>
+
+<script src="script.js"></script>
+<script>
+    
+    const productId = new URLSearchParams(window.location.search).get('id');
+    const product = products.find(p => p.id.toString() === productId);
+
+    if (product) {
+        displayProductDetails(product);
+    } else {
+        
+        const productDetailsSection = document.getElementById('productDetails');
+        productDetailsSection.innerHTML = '<p>Товар не найден</p>';
+    }
+
+    function displayProductDetails(product) {
+        const productDetailsSection = document.getElementById('productDetails');
+
+        const productName = document.createElement('h2');
+        productName.textContent = product.name;
+
+        const productImage = document.createElement('img');
+        productImage.src = product.image;
+        productImage.alt = product.name;
+
+        const productDescription = document.createElement('p');
+        productDescription.textContent = product.description;
+
+        const productCategory = document.createElement('p');
+        productCategory.textContent = `Категория: ${product.category}`;
+
+        const productPrice = document.createElement('p');
+        productPrice.textContent = `Цена: $${product.price.toFixed(2)}`;
+
+        productDetailsSection.appendChild(productName);
+        productDetailsSection.appendChild(productImage);
+        productDetailsSection.appendChild(productDescription);
+        productDetailsSection.appendChild(productCategory);
+        productDetailsSection.appendChild(productPrice);
+    }
+</script>
+
+</body>
+</html>
