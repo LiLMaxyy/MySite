@@ -1,20 +1,10 @@
-let products = [];
+let products = JSON.parse(localStorage.getItem('products')) || [];
 let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
 function initializePage() {
-    
-    setTimeout(() => {
-        products = [
-            { id: 1, name: 'Товар 1', price: 19.99, category: 'Электроника', description: 'Описание товара 1', image: 'product1.jpg' },
-            { id: 2, name: 'Товар 2', price: 29.99, category: 'Одежда', description: 'Описание товара 2', image: 'product2.jpg' },
-            { id: 3, name: 'Товар 3', price: 14.99, category: 'Книги', description: 'Описание товара 3', image: 'product3.jpg' },
-            
-        ];
-
-        displayProducts(products);
-        updateCart();
-        populateCategoryFilter();
-    }, 1000); 
+    displayProducts(products);
+    updateCart();
+    populateCategoryFilter();
 }
 
 function addNewProduct() {
@@ -37,6 +27,7 @@ function addNewProduct() {
         products.push(newProduct);
         displayProducts(products);
         populateCategoryFilter();
+        updateLocalStorage();
 
         
         document.getElementById('productName').value = '';
@@ -47,6 +38,13 @@ function addNewProduct() {
     } else {
         alert('Пожалуйста, заполните все поля для добавления товара.');
     }
+}
+
+function deleteProduct(productId) {
+    products = products.filter(product => product.id !== productId);
+    displayProducts(products);
+    populateCategoryFilter();
+    updateLocalStorage();
 }
 
 function displayProducts(productsToDisplay) {
@@ -85,6 +83,12 @@ function createProductElement(product) {
         addToCart(product.id);
     };
 
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Удалить товар';
+    deleteButton.onclick = function () {
+        deleteProduct(product.id);
+    };
+
     const productLink = document.createElement('a');
     productLink.href = `product.html?id=${product.id}`;
     productLink.appendChild(productName);
@@ -95,12 +99,15 @@ function createProductElement(product) {
     productDiv.appendChild(productCategory);
     productDiv.appendChild(productPrice);
     productDiv.appendChild(addToCartButton);
+    productDiv.appendChild(deleteButton);
 
     return productDiv;
 }
 
 function populateCategoryFilter() {
     const categoryFilter = document.getElementById('categoryFilter');
+    categoryFilter.innerHTML = '<option value="all">Все категории</option>';
+
     const categories = [...new Set(products.map(product => product.category))];
     
     categories.forEach(category => {
@@ -111,6 +118,14 @@ function populateCategoryFilter() {
     });
 }
 
+
+function updateLocalStorage() {
+    localStorage.setItem('products', JSON.stringify(products));
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+}
+
+
+initializePage();
 function filterProducts() {
     const categoryFilter = document.getElementById('categoryFilter').value;
     const searchQuery = document.getElementById('searchProduct').value.toLowerCase();
@@ -131,6 +146,7 @@ function filterProducts() {
 }
 
 function updateLocalStorage() {
+    localStorage.setItem('products', JSON.stringify(products));
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
 
@@ -215,6 +231,7 @@ function changeQuantity(productId, change) {
 
 function removeFromCart(productId) {
     const itemIndex = cartItems.findIndex(item => item.id === productId);
+
     if (itemIndex !== -1) {
         cartItems.splice(itemIndex, 1);
         updateCart();
@@ -227,6 +244,7 @@ function clearCart() {
     updateCart();
     updateLocalStorage();
 }
+
 
 initializePage();
 
