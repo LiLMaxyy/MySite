@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин товаров</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .product {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 15px;
+            width: 200px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Добро пожаловать в наш магазин!</h1>
+</header>
+
+<section>
+    <div class="product">
+        <h2>Товар 1</h2>
+        <p>Описание товара 1.</p>
+        <p>Цена: $19.99</p>
+        <button onclick="addToCart('Товар 1', 19.99)">Добавить в корзину</button>
+    </div>
+
+    <div class="product">
+        <h2>Товар 2</h2>
+        <p>Описание товара 2.</p>
+        <p>Цена: $29.99</p>
+        <button onclick="addToCart('Товар 2', 29.99)">Добавить в корзину</button>
+    </div>
+
+    
+
+</section>
+
+<section>
+    <h2>Корзина</h2>
+    <ul id="cart"></ul>
+</section>
+
+<script>
+    let cartItems = [];
+
+    function addToCart(productName, price) {
+        cartItems.push({ name: productName, price: price });
+        updateCart();
+    }
+
+    function updateCart() {
+        const cartElement = document.getElementById('cart');
+        cartElement.innerHTML = '';
+
+        cartItems.forEach(item => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+            cartElement.appendChild(listItem);
+        });
+    }
+</script>
+
+</body>
+</html>
