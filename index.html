@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин товаров</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Добро пожаловать в наш магазин!</h1>
+</header>
+
+<section>
+    <div id="addProductForm">
+        
+        <h2>Добавить новый товар</h2>
+        <form onsubmit="addNewProduct(); return false;">
+            
+        </form>
+    </div>
+
+    <section id="productsSection">
+        
+    </section>
+
+    <section>
+        
+        <h2>Корзина</h2>
+        <ul id="cart"></ul>
+        <p id="totalPrice">Общая стоимость: $0.00</p>
+        <button onclick="clearCart()">Очистить корзину</button>
+    </section>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
