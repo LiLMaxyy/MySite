@@ -4,19 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Магазин товаров</title>
-    <!-- Подключение Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header class="bg-dark text-white text-center py-5">
-    <h1>Добро пожаловать в наш магазин!</h1>
+    <h1>Добро пожаловать на нащ маркетплейс!</h1>
 </header>
 
 <section class="container my-5">
     <div id="addProductForm">
-        <!-- Форма для добавления товара -->
         <h2 class="mb-4">Добавить новый товар</h2>
         <form onsubmit="addNewProduct(); return false;">
             <div class="form-group">
@@ -45,7 +43,6 @@
     </div>
 
     <div id="filters" class="my-4">
-        <!-- Фильтры для категорий и поиска -->
         <h2>Фильтры</h2>
         <div class="form-group">
             <label for="categoryFilter">Категория:</label>
@@ -61,11 +58,9 @@
     </div>
 
     <section id="productsSection" class="row">
-        <!-- Секция для отображения товаров -->
     </section>
 
     <section id="cartSection" class="my-5">
-        <!-- Корзина -->
         <h2>Корзина</h2>
         <ul id="cart" class="list-unstyled"></ul>
         <p id="totalPrice">Общая стоимость: $0.00</p>
@@ -73,7 +68,6 @@
     </section>
 </section>
 
-<!-- Подключение Bootstrap JS (Popper.js и jQuery нужны для некоторых компонентов Bootstrap) -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

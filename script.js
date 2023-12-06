@@ -1,5 +1,3 @@
-// Дополнительная логика для работы магазина
-
 let products = JSON.parse(localStorage.getItem('products')) || [];
 let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
@@ -31,7 +29,6 @@ function addNewProduct() {
         populateCategoryFilter();
         updateLocalStorage();
 
-        // Очищаем форму после добавления товара
         document.getElementById('productName').value = '';
         document.getElementById('productPrice').value = '';
         document.getElementById('productDescription').value = '';
@@ -239,6 +236,5 @@ function clearCart() {
     updateLocalStorage();
 }
 
-// Вызываем инициализацию страницы при загрузке
 initializePage();
 
